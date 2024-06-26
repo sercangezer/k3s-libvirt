@@ -13,6 +13,7 @@
   become: true
   roles:
     - role: k3s_server
+    - role: install_helm
 
 - name: Setup K3S agent
   hosts: agent
