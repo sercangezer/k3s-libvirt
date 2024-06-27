@@ -84,6 +84,7 @@
         daemon_reload: true
         state: started
         enabled: true
+      ignore_errors: true
 
     - name: Pause to allow first server startup
       when: (groups[server_group] | length) > 1
@@ -158,6 +159,7 @@
         daemon_reload: true
         state: started
         enabled: true
+      ignore_errors: true
 
     - name: Verify that all server nodes joined
       when: (groups[server_group] | length) > 1
