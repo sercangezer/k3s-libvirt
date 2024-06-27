@@ -6,9 +6,10 @@ NODE_MEMORY = 4096
 # Virtualbox >= 6.1.28 require `/etc/vbox/network.conf` for expanded private networks 
 NETWORK_PREFIX = "192.168.1"
 
-ENV["VAGRANT_EXPERIMENTAL"] = "disks"
+# VirtualBox ortamları için
+#ENV["VAGRANT_EXPERIMENTAL"] = "disks"
 
-required_plugins = ["vagrant-disksize" "vagrant-libvirt"]
+required_plugins = [ "vagrant-libvirt" ]
 plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
 if not plugins_to_install.empty?
   puts "Installing plugins: #{plugins_to_install.join(' ')}"
