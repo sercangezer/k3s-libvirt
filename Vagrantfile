@@ -6,6 +6,19 @@ NODE_MEMORY = 4096
 # Virtualbox >= 6.1.28 require `/etc/vbox/network.conf` for expanded private networks 
 NETWORK_PREFIX = "192.168.1"
 
+ENV["VAGRANT_EXPERIMENTAL"] = "disks"
+
+required_plugins = ["vagrant-disksize" "vagrant-libvirt"]
+plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
+if not plugins_to_install.empty?
+  puts "Installing plugins: #{plugins_to_install.join(' ')}"
+  if system "vagrant plugin install #{plugins_to_install.join(' ')}"
+    exec "vagrant #{ARGV.join(' ')}"
+  else
+    abort "Installation of one or more plugins has failed. Aborting."
+  end
+end
+
 def provision(vm, role, node_num)
   vm.box = NODE_BOXES[node_num]
   vm.hostname = role
