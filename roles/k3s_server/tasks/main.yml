@@ -98,7 +98,7 @@
       ansible.builtin.command: 'kubectl'
       register: kubectl_installed
       ignore_errors: true
-      delegate_to: 127.0.0.1
+      #delegate_to: 127.0.0.1
       become: false
       changed_when: false
 
@@ -114,7 +114,7 @@
         - name: Change server address in kubeconfig on control node
           ansible.builtin.shell: |
             KUBECONFIG={{ kubeconfig }} kubectl config set-cluster default --server=https://{{ api_endpoint }}:{{ api_port }}
-          delegate_to: 127.0.0.1
+          #delegate_to: 127.0.0.1
           become: false
           register: csa_result
           changed_when:
@@ -126,7 +126,7 @@
             path: "{{ kubeconfig }}"
             regexp: 'name: default'
             replace: 'name: {{ cluster_context }}'
-          delegate_to: 127.0.0.1
+          #delegate_to: 127.0.0.1
           become: false
 
         - name: Merge with any existing kubeconfig on control node
@@ -136,7 +136,7 @@
             KUBECONFIG={{ kubeconfig }} kubectl config set-context {{ cluster_context }} --user={{ cluster_context }} --cluster={{ cluster_context }}
             KUBECONFIG={{ kubeconfig }} kubectl config view --flatten > ${TFILE}
             mv ${TFILE} {{ kubeconfig }}
-          delegate_to: 127.0.0.1
+          #delegate_to: 127.0.0.1
           become: false
           register: mv_result
           changed_when:
