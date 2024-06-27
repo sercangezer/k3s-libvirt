@@ -189,8 +189,7 @@
 - name: If iptables v1.8.0-1.8.4, warn user  # noqa ignore-errors
   when:
     - ansible_facts.packages['iptables'] is defined
-    - ansible_facts.packages['iptables'][0]['version'] is version('1.8.5', '<')
-    - ansible_facts.packages['iptables'][0]['version'] is version('1.7.9', '>')
+    - ansible_facts.packages['iptables'][0]['version'] is version('1.8.5', '<') and ansible_facts.packages['iptables'][0]['version'] is version('1.7.9', '>')
   ansible.builtin.fail:
     msg:
       - "Warning: Iptables {{ ansible_facts.packages['iptables'][0]['version'] }} found."

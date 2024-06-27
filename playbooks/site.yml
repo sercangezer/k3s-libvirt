@@ -6,7 +6,7 @@
   roles:
     - role: prereq
     - role: airgap
-    - role: raspberrypi
+    #- role: raspberrypi
 
 - name: Setup K3S server
   hosts: server
