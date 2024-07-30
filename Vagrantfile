@@ -1,4 +1,6 @@
 # ENV['VAGRANT_NO_PARALLEL'] = 'no'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
 NODE_ROLES = ["server-0", "server-1", "server-2", "agent-0", "agent-1"]
 NODE_BOXES = ['generic/ubuntu2004', 'generic/ubuntu2004', 'generic/ubuntu2004', 'generic/ubuntu2004', 'generic/ubuntu2004']
 NODE_CPUS = 4
