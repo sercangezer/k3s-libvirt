@@ -1,0 +1,35 @@
+---
+
+- name: Download kubens tarball
+  ansible.builtin.get_url:
+    url: "https://github.com/ahmetb/kubectx/archive/refs/tags/v0.9.5.tar.gz"
+    dest: "/tmp/kubens.tar.gz"
+    mode: "0777"
+    timeout: 300
+    force: true
+
+- name: Extract kubectx tarball
+  ansible.builtin.unarchive:
+    src: "/tmp/kubens.tar.gz"
+    dest: "/tmp/"
+    remote_src: true
+
+- name: Copy kubens to /usr/local/bin
+  ansible.builtin.copy:
+    src: "/tmp/kubectx-0.9.5/kubens"
+    dest: "/usr/local/bin/kubens"
+    mode: "0755"
+    owner: "vagrant"
+    group: "vagrant"
+    remote_src: true
+    force: true
+
+- name: Copy kubectx to /usr/local/bin
+  ansible.builtin.copy:
+    src: "/tmp/kubectx-0.9.5/kubectx"
+    dest: "/usr/local/bin/kubectx"
+    mode: "0755"
+    owner: "vagrant"
+    group: "vagrant"
+    remote_src: true
+    force: true

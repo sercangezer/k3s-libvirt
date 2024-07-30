@@ -1,0 +1,7 @@
+---
+- name: "Create rke2-alias file"
+  ansible.builtin.copy:
+    dest: /etc/profile.d/00-kubectl-alias.sh
+    content: |
+      alias k="kubectl "
+      complete -o default -F __start_kubectl k
