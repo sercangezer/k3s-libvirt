@@ -1,7 +1,10 @@
 ---
 
-- name: "k alias set edilmesi "
+- name: "k alias set edilmesi"
   ansible.builtin.import_tasks: 01_k_alias.yml
 
-- name: "kubens ve kubectx yüklenmesi "
+- name: "kubens ve kubectx yüklenmesi"
   ansible.builtin.import_tasks: 02_kubens_install.yml
+
+- name: "k9s yüklenmesi"
+  ansible.builtin.import_tasks: 03_k9s_install.yml

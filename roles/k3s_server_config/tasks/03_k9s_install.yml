@@ -1,0 +1,25 @@
+---
+
+- name: Download k9s tarball
+  ansible.builtin.get_url:
+    url: "https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz"
+    dest: "/tmp/k9s.tar.gz"
+    mode: "0777"
+    timeout: 300
+    force: true
+
+- name: Extract k9s tarball
+  ansible.builtin.unarchive:
+    src: "/tmp/k9s.tar.gz"
+    dest: "/tmp/k9s"
+    remote_src: true
+
+- name: Copy k9s to /usr/local/bin
+  ansible.builtin.copy:
+    src: "/tmp/k9s/k9s"
+    dest: "/usr/local/bin/k9s"
+    mode: "0755"
+    owner: "vagrant"
+    group: "vagrant"
+    remote_src: true
+    force: true
