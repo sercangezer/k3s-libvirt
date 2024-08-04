@@ -8,11 +8,22 @@
     timeout: 300
     force: true
 
-- name: Extract k9s tarball
-  ansible.builtin.unarchive:
-    src: "/tmp/k9s.tar.gz"
-    dest: "/tmp/k9s"
-    remote_src: true
+- name: Extract k9s tarball block
+  block:
+    - name: Ensure the destination directory exists
+      ansible.builtin.file:
+        path: /tmp/k9s
+        state: directory
+        mode: '0755'
+    - name: Extract k9s tarball
+      ansible.builtin.unarchive:
+        src: "/tmp/k9s.tar.gz"
+        dest: "/tmp/k9s"
+        remote_src: true
+  rescue:
+    - name: Fail task if block fails
+      ansible.builtin.fail:
+        msg: "[k9s] Failed to create directory or extract tarball"
 
 - name: Copy k9s to /usr/local/bin
   ansible.builtin.copy:
