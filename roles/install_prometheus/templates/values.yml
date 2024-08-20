@@ -1,0 +1,42 @@
+prometheus:
+
+  ## nodePort
+  service:
+    type: NodePort
+
+  prometheusSpec:
+    serviceMonitorSelector:
+      matchLabels:
+        release: prometheus
+
+    ruleSelector:
+      matchLabels:
+        release: prometheus
+
+alertmanager:
+
+  ## Deploy alertmanager
+  enabled: true
+
+  ## nodePort
+  service:
+    type: NodePort
+
+  alertmanagerSpec:
+    replicas: 2
+    alertmanagerConfigSelector:
+      matchLabels:
+        resource: prometheus
+
+grafana:
+
+  ## Deploy grafana
+  enabled: true
+
+  defaultDashboardsTimezone: browser
+  adminPassword: grafana
+
+  ## nodePort
+  service:
+    type: NodePort
+    nodePort: 30904

@@ -1,0 +1,11 @@
+---
+
+- name: Setup K3S server
+  hosts: server
+  become: true
+  roles:
+    - role: install_prometheus
+      become_user: "vagrant"
+      when:
+        - inventory_hostname == groups['server'][0]
+        - install_prometheus_install | default(false)

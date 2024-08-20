@@ -25,6 +25,7 @@ end
 def provision(vm, role, node_num)
   vm.box = NODE_BOXES[node_num]
   vm.hostname = role
+
   # We use a private network because the default IPs are dynamically assigned 
   # during provisioning. This makes it impossible to know the server-0 IP when 
   # provisioning subsequent servers and agents. A private network allows us to
@@ -33,6 +34,8 @@ def provision(vm, role, node_num)
   # An expanded netmask is required to allow VM<-->VM communication, virtualbox defaults to /32
   #vm.network "private_network", ip: node_ip, netmask: "255.255.255.0"
 
+
+  #vm.network "private_network", ip: node_ip, netmask: "255.255.255.0"
   vm.network "public_network", ip: node_ip, netmask: "255.255.255.0", mode: "bridge", type: "bridge", dev: "bridge0"
 
   vm.provision "ansible", run: 'once' do |ansible|

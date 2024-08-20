@@ -11,6 +11,22 @@
     name: policycoreutils  # Used by install script to restore SELinux context
     update_cache: true
 
+- name: Disabled UFW on Ubuntu
+  when: ansible_distribution in ['Ubuntu']
+  ansible.builtin.systemd:
+    name: ufw
+    enabled: false
+    state: stopped
+    daemon_reload: true
+
+- name: Disabled UFW on Ubuntu
+  when: ansible_distribution in ['Ubuntu']
+  ansible.builtin.systemd:
+    name: apparmor
+    enabled: false
+    state: stopped
+    daemon_reload: true
+
 - name: Enable IPv4 forwarding
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward

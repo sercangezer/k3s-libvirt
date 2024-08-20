@@ -1,0 +1,27 @@
+---
+k3s_cluster:
+  children:
+    server:
+      hosts:
+        192.168.1.160:
+        192.168.1.161:
+        192.168.1.162:
+    agent:
+      hosts:
+        192.168.1.163:
+        192.168.1.164:
+        192.168.1.165:
+
+  # Required Vars
+  vars:
+    ansible_user: vagrant
+    ansible_become_pass: vagrant
+    ansible_password: vagrant
+    ansible_become_method: sudo
+    ansible_connection: ssh
+
+    # kube-prometheus-stack HELM install
+    install_prometheus_install: true
+    kube_prometheus_stack_helm_chart: https://prometheus-community.github.io/helm-charts
+    kube_prometheus_stack_release_namespace: monitoring
+    #kube_prometheus_stack_chart_version: "61.8.0" #Yorum satırı haline getirilirse latest sürümü indirir.
