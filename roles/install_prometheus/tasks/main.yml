@@ -15,5 +15,5 @@
     chart_version: "{{ kube_prometheus_stack_chart_version }}"
     create_namespace: true
     update_repo_cache: true
-    wait: false
+    wait: true
     values: "{{ lookup('template', 'values.yml') | from_yaml }}"

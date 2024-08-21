@@ -13,10 +13,33 @@ prometheus:
       matchLabels:
         release: prometheus
 
+    podMonitorSelector:
+      matchLabels:
+        release: prometheus
+
+    scrapeConfigSelector:
+      matchLabels:
+        release: prometheus
+
+    probeSelector:
+      matchLabels:
+        release: prometheus
+
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+
 alertmanager:
 
   ## Deploy alertmanager
   enabled: true
+
+  ## Default ayarları siliyoruz
+  config:
+    global:
+      resolve_timeout: 5m
 
   ## nodePort
   service:
@@ -27,6 +50,8 @@ alertmanager:
     alertmanagerConfigSelector:
       matchLabels:
         resource: prometheus
+    alertmanagerConfiguration:
+      name: gmail-alertmanager
 
 grafana:
 
