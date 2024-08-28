@@ -18,7 +18,7 @@
     - role: k3s_server_config
     - role: install_prometheus
       become_user: "vagrant"
-      install_prometheus_install: true
+      install_prometheus_install: false
       when:
         - inventory_hostname == groups['server'][0]
         - install_prometheus_install
